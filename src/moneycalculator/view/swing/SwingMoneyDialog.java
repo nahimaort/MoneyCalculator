@@ -1,11 +1,15 @@
 package moneycalculator.view.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -34,6 +38,7 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
         this.loader = loader;
         this.display = display;
         this.command = new ExchangeCommand(this.loader, this, this.display);
+        this.setBackground(new Color(255, 255, 255));
         this.add(getAmount());
         this.add(getCurrencyFrom());
         this.add(getCurrencyTo());
@@ -56,26 +61,50 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
         return currencyTo;
     }
 
-    private JTextField getAmount() {
+    private JPanel getAmount() {
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(255, 255, 255));
+        panel.setLayout(new BorderLayout());
+        JLabel label = new JLabel("Amount:");
+        label.setFont(new Font("Arial", 1, 14));
+        label.setForeground(new Color(0, 51, 102));
+        panel.add(label, BorderLayout.NORTH);
         JTextField textField = new JTextField("");
         textField.setColumns(10);
+        panel.add(textField, BorderLayout.SOUTH);
         textField.getDocument().addDocumentListener(newAmount());
         amount = textField.getText();
-        return textField;
+        return panel;
     }
 
-    private JComboBox getCurrencyFrom() {
+    private JPanel getCurrencyFrom() {
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(255, 255, 255));
+        panel.setLayout(new BorderLayout());
+        JLabel label = new JLabel("From:");
+        label.setFont(new Font("Arial", 1, 14));
+        label.setForeground(new Color(0, 51, 102));
+        panel.add(label, BorderLayout.NORTH);
         JComboBox comboBox = new JComboBox(getCurrencies());
+        panel.add(comboBox, BorderLayout.SOUTH);
         comboBox.addItemListener(newCurrencyFrom());
         currencyFrom = (Currency) comboBox.getSelectedItem();
-        return comboBox;
+        return panel;
     }
     
-    private JComboBox getCurrencyTo() {
+    private JPanel getCurrencyTo() {
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(255, 255, 255));
+        panel.setLayout(new BorderLayout());
+        JLabel label = new JLabel("To:");
+        label.setFont(new Font("Arial", 1, 14));
+        label.setForeground(new Color(0, 51, 102));
+        panel.add(label, BorderLayout.NORTH);
         JComboBox comboBox = new JComboBox(getCurrencies());
+        panel.add(comboBox, BorderLayout.SOUTH);
         comboBox.addItemListener(newCurrencyTo());
         currencyTo = (Currency) comboBox.getSelectedItem();
-        return comboBox;
+        return panel;
     }
 
     private Object[] getCurrencies() {

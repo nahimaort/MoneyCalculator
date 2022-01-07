@@ -1,12 +1,15 @@
 package moneycalculator;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 import moneycalculator.controller.Command;
-import moneycalculator.controller.ExchangeCommand;
 import moneycalculator.model.Currency;
 import moneycalculator.persistence.ExchangeRateLoader;
 import moneycalculator.view.MoneyDisplay;
@@ -26,10 +29,14 @@ public class MainFrame extends JFrame {
         this.loader = loader;
         this.setTitle("Money Calculator");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setSize(400, 200);
+        this.setSize(600, 200);
         this.setLocationRelativeTo(null);
-        this.add(moneyDisplay(), BorderLayout.CENTER);
-        this.add(moneyDialog(), BorderLayout.NORTH);
+        this.getContentPane().setBackground(new Color(0, 0, 102));
+        this.getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
+        this.add(displayTitle(), Component.LEFT_ALIGNMENT);
+        Component displayPanel = moneyDisplay();
+        this.add(moneyDialog(), Component.CENTER_ALIGNMENT);
+        this.add(displayPanel, Component.CENTER_ALIGNMENT);
         this.setVisible(true);
     }
 
@@ -39,6 +46,14 @@ public class MainFrame extends JFrame {
 
     public SwingMoneyDialog getDialog() {
         return dialog;
+    }
+    
+    private JLabel displayTitle() {
+        JLabel label = new JLabel("Currency Converter");
+        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        label.setForeground(new Color(255, 255, 255));
+        label.setFont(new Font("Arial Black", 1, 14));
+        return label;
     }
     
     private Component moneyDisplay() {

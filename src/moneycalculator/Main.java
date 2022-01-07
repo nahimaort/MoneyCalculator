@@ -14,6 +14,5 @@ public class Main {
         List<Currency> currencies = currencyLoader.load();
         ExchangeRateLoader exchangeRateLoader = new WebServiceExchangeRateLoader();
         MainFrame mainFrame = new MainFrame(currencies, exchangeRateLoader);
-        
     }
 }
