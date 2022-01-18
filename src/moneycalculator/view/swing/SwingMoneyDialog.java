@@ -29,15 +29,13 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
     private Currency currencyFrom;
     private Currency currencyTo;
     private String amount;
-    private final Command command;
+    private Command command;
+    private MoneyDisplay display;
     private final ExchangeRateLoader loader;
-    private final MoneyDisplay display;
 
-    public SwingMoneyDialog(List<Currency> currencies, ExchangeRateLoader loader, MoneyDisplay display) {
+    public SwingMoneyDialog(List<Currency> currencies, ExchangeRateLoader loader) {
         this.currencies = currencies;
         this.loader = loader;
-        this.display = display;
-        this.command = new ExchangeCommand(this.loader, this, this.display);
         this.setBackground(new Color(255, 255, 255));
         this.add(getAmount());
         this.add(getCurrencyFrom());
@@ -59,6 +57,11 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
     @Override
     public Currency getTo() {
         return currencyTo;
+    }
+    
+    public void setDisplay(MoneyDisplay moneyDisplay) {
+        display = moneyDisplay;
+        command = new ExchangeCommand(this.loader, this, this.display);
     }
 
     private JPanel getAmount() {

@@ -34,9 +34,8 @@ public class MainFrame extends JFrame {
         this.getContentPane().setBackground(new Color(0, 0, 102));
         this.getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
         this.add(displayTitle(), Component.LEFT_ALIGNMENT);
-        Component displayPanel = moneyDisplay();
         this.add(moneyDialog(), Component.CENTER_ALIGNMENT);
-        this.add(displayPanel, Component.CENTER_ALIGNMENT);
+        this.add(moneyDisplay(), Component.CENTER_ALIGNMENT);
         this.setVisible(true);
     }
 
@@ -59,11 +58,12 @@ public class MainFrame extends JFrame {
     private Component moneyDisplay() {
         SwingMoneyDisplay moneyDisplay = new SwingMoneyDisplay();
         this.display = moneyDisplay;
+        this.dialog.setDisplay(this.display);
         return moneyDisplay;
     }
     
     private Component moneyDialog() {
-        SwingMoneyDialog moneyDialog = new SwingMoneyDialog(this.currencies, this.loader, display);
+        SwingMoneyDialog moneyDialog = new SwingMoneyDialog(this.currencies, this.loader);
         this.dialog = moneyDialog;
         return moneyDialog;
     }
